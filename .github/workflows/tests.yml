@@ -1,0 +1,24 @@
+name: tests
+
+on:
+  push:
+    paths-ignore:
+      - 'LICENSE'
+      - '*.md'
+
+jobs:
+  check-installation:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      # matrix:
+      #   kicad-version: ['7.0']
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-for-kicad/setup-kicad@main
+      - uses: ./
+        with:
+          version: ${{ matrix.kicad-version }}
+      - name: Verify kicad
+        run: tests/verify-kicad.sh "${{ matrix.kicad-version }}"
+        shell: bash

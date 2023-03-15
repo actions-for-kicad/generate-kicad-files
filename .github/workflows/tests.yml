@@ -19,7 +19,8 @@ jobs:
       - uses: actions-for-kicad/setup-kicad@main
         with:
           version: ${{ matrix.kicad-version }}
-      - uses: ./
+      - name: Exoprt file
+        uses: ./
         with:
           file: 'tests/kicad-project/kicad-project.kicad_sch'
           type: ${{ matrix.type }}

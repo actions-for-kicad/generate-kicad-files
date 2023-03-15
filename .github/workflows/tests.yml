@@ -7,18 +7,22 @@ on:
       - '*.md'
 
 jobs:
-  check-installation:
+  check-export-schematic:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      # matrix:
-      #   kicad-version: ['7.0']
+      matrix:
+        kicad-version: ['7.0']
+        type: ['schematic_pdf']
     steps:
       - uses: actions/checkout@v3
       - uses: actions-for-kicad/setup-kicad@main
-      - uses: ./
         with:
           version: ${{ matrix.kicad-version }}
-      - name: Verify kicad
-        run: tests/verify-kicad.sh "${{ matrix.kicad-version }}"
+      - uses: ./
+        with:
+          file: 'tests/kicad-project/kicad-project.kicad_sch'
+          type: ${{ matrix.type }}
+      - name: Verifiy output
+        run: tests/check-output.sh "${{ matrix.type }}" "tests/kicad-project/kicad-project.kicad_sch"
         shell: bash

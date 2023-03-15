@@ -25,5 +25,5 @@ jobs:
           file: 'tests/kicad-project/kicad-project.kicad_sch'
           type: ${{ matrix.type }}
       - name: Verifiy output
-        run: tests/check-output.sh "${{ matrix.type }}" "tests/kicad-project/kicad-project.kicad_sch"
+        run: tests/check-output.sh "${{ matrix.type }}" "./kicad-project.kicad_sch"
         shell: bash

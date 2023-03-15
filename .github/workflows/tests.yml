@@ -24,6 +24,9 @@ jobs:
         with:
           file: 'tests/kicad-project/kicad-project.kicad_sch'
           type: ${{ matrix.type }}
+      - name: Show place
+        run: pwd
+        shell: bash
       - name: Verifiy output
-        run: tests/check-output.sh "${{ matrix.type }}" "./kicad-project.kicad_sch"
+        run: tests/check-output.sh "${{ matrix.type }}" "kicad-project.kicad_sch"
         shell: bash

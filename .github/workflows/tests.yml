@@ -38,7 +38,7 @@ jobs:
       - uses: actions-for-kicad/setup-kicad@main
         with:
           version: ${{ matrix.kicad-version }}
-      - name: Exoprt file
+      - name: Export file
         uses: ./
         with:
           file: 'tests/kicad-project/${{ matrix.file }}'

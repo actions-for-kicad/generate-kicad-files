@@ -19,7 +19,7 @@ if [ -z "$kicad_version" ]; then
 fi
 
 # Get the fil_name without file type
-file_name="$(echo $2 | rev | cut -d '/' -f 1 | rev | cut -d '.' -f 1)"
+file_name="$(echo $1 | rev | cut -d '/' -f 1 | rev | cut -d '.' -f 1)"
 
 # Export the schematic
 if [ "$2" = "schematic_pdf" ]; then

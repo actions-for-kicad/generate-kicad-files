@@ -1,0 +1,36 @@
+name: 'Generate kicad files'
+description: 'Generate kicad files like a pdf schematic, bom files, etc.'
+branding:
+  icon: 'cpu'
+  color: 'yellow'
+
+inputs:
+  file:
+    description: 'The location to the schematic or PCB file.'
+    required: true
+  type:
+    description: >
+      Export type, choose one of the following:
+      - schematic_pdf
+      - schematic_svg
+      - pcb_step
+    required: true
+
+# outputs:
+#   output-type:
+#     description: >
+#       The output type of the files, this can be the following type:
+#       - file
+#       - folder
+#     value: XXXX
+#   output-location:
+#     description: 'The location of the output files.'
+#     value: ${{ github.action_path }}/output
+
+runs:
+  using: "composite"
+  steps:
+    - id: export-files
+      name: 'Export files.'
+      run: ${{ github.action_path }}/export_files.sh "${{ inputs.file }}" "${{ inputs.type }}"
+      shell: bash

@@ -1,0 +1,32 @@
+name: tests
+
+on:
+  push:
+    paths-ignore:
+      - 'LICENSE'
+      - '*.md'
+
+jobs:
+  check-export-schematic:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        kicad-version: ['7.0']
+        type: ['schematic_pdf']
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-for-kicad/setup-kicad@main
+        with:
+          version: ${{ matrix.kicad-version }}
+      - name: Exoprt file
+        uses: ./
+        with:
+          file: 'tests/kicad-project/kicad-project.kicad_sch'
+          type: ${{ matrix.type }}
+      - name: Show place
+        run: pwd
+        shell: bash
+      - name: Verifiy output
+        run: tests/check-output.sh "${{ matrix.type }}" "kicad-project.kicad_sch"
+        shell: bash

@@ -15,6 +15,7 @@ inputs:
       - schematic_svg
       - schematic_bom
       - pcb_step
+      - pcb_pos
     required: true
 
 # outputs:

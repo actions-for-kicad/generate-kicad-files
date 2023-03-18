@@ -27,6 +27,8 @@ elif [ "$2" = "schematic_bom" ]; then
   kicad-cli sch export python-bom "$1"
 elif [ "$2" = "pcb_step" ]; then
   kicad-cli pcb export step --subst-models "$1"
+elif [ "$2" = "pcb_pos" ]; then
+  kicad-cli pcb export pos "$1"
 else
   echo "::error::Type is not correct"
   exit 1

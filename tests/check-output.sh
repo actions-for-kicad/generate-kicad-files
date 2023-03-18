@@ -17,9 +17,11 @@ if [ "$1" = "schematic_pdf" ]; then
 elif [ "$1" = "schematic_svg" ]; then
   file="${file_name}.svg"
 elif [ "$1" = "schematic_bom" ]; then
-  file="${file_name}.xml"
+  file="${file_name}-bom.xml"
 elif [ "$1" = "pcb_step" ]; then
   file="${file_name}.step"
+elif [ "$1" = "pcb_pos" ]; then
+  file="${file_name}.pos"
 else
   echo "::error::Type is not correct"
   exit 1

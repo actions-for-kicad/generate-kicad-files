@@ -7,13 +7,18 @@ on:
       - '*.md'
 
 jobs:
-  check-export-schematic:
+  check-export:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         kicad-version: ['7.0']
-        type: ['schematic_pdf']
+        type: ['schematic_pdf', 'pcb_step']
+        include:
+          - type: schematic_pdf
+            file: kicad-project.kicad_sch
+          - type: pcb_step
+            file: kicad-project.kicad_pcb
     steps:
       - uses: actions/checkout@v3
       - uses: actions-for-kicad/setup-kicad@main
@@ -22,11 +27,8 @@ jobs:
       - name: Exoprt file
         uses: ./
         with:
-          file: 'tests/kicad-project/kicad-project.kicad_sch'
+          file: 'tests/kicad-project/${{ matrix.file }}'
           type: ${{ matrix.type }}
-      - name: Show place
-        run: pwd
-        shell: bash
       - name: Verifiy output
-        run: tests/check-output.sh "${{ matrix.type }}" "kicad-project.kicad_sch"
+        run: tests/check-output.sh "${{ matrix.type }}" "${{ matrix.file }}"
         shell: bash

@@ -6,18 +6,18 @@ if [ -z "$1" ]; then
 fi
 
 if [ -z "$2" ]; then
-  echo "::error::Please supply the input file."
+  echo "::error::Please supply the input file name."
   exit 1
 fi
 
-file_path="$(echo $2 | cut -d '.' -f 1)"
+file_name="$(echo $2 | cut -d '.' -f 1)"
 
 if [ "$1" = "schematic_pdf" ]; then
-  file="${file_path}.pdf"
+  file="${file_name}.pdf"
 # elif [ "$1" = "schematic_svg" ]; then
-#   kicad-cli sch export svg "$1"
-# elif [ "$1" = "pcb_step" ]; then
-#   kicad-cli pcb export step --subst-models "$1"
+#   file="${file_name}.pdf"
+elif [ "$1" = "pcb_step" ]; then
+  file="${file_name}.step"
 else
   echo "::error::Type is not correct"
   exit 1
@@ -26,6 +26,6 @@ fi
 if [ -f "$file" ]; then
     echo "Export is succesfull."
 else 
-    echo "Export is not succesfull."
+    echo "::error::Export is not succesfull."
     exit 1
 fi

@@ -13,6 +13,7 @@ inputs:
       Export type, choose one of the following:
       - schematic_pdf
       - schematic_svg
+      - schematic_bom
       - pcb_step
     required: true
 

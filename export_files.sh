@@ -37,6 +37,12 @@ elif [ "$2" = "pcb_pos" ]; then
 elif [ "$2" = "pcb_gerbers" ]; then
   kicad-cli pcb export gerbers -l "$3" "$1"
   zip "${file_name}-gerbers.zip" *.g*
+elif [ "$2" = "pcb_drill" ]; then
+  kicad-cli pcb export dill "$1"
+elif [ "$2" = "pcb_gerbers_drill" ]; then
+  kicad-cli pcb export gerbers -l "$3" "$1"
+  kicad-cli pcb export dill "$1"
+  zip "${file_name}-gerbers.zip" *.g* *.drl
 else
   echo "::error::Type is not correct"
   exit 1

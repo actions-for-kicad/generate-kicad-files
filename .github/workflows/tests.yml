@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         kicad-version: ['7.0']
-        type: ['schematic_pdf', 'schematic_svg', 'schematic_bom', 'schematic_netlist', 'pcb_step', 'pcb_pos', 'pcb_gerbers']
+        type: ['schematic_pdf', 'schematic_svg', 'schematic_bom', 'schematic_netlist', 'pcb_step', 'pcb_pos', 'pcb_gerbers', 'pcb_drill', 'pcb_gerbers_drill']
         include:
           - type: schematic_pdf
             file: kicad-project.kicad_sch
@@ -28,6 +28,10 @@ jobs:
           - type: pcb_pos
             file: kicad-project.kicad_pcb
           - type: pcb_gerbers
+            file: kicad-project.kicad_pcb
+          - type: pcb_drill
+            file: kicad-project.kicad_pcb
+          - type: pcb_gerbers_drill
             file: kicad-project.kicad_pcb
     steps:
       - uses: actions/checkout@v3

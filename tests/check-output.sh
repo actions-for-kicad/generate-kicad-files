@@ -26,6 +26,10 @@ elif [ "$1" = "pcb_pos" ]; then
   file="${file_name}.pos"
 elif [ "$1" = "pcb_gerbers" ]; then
   file="${file_name}-gerbers.zip"
+elif [ "$1" = "pcb_drill" ]; then
+  file="${file_name}.drl"
+elif [ "$1" = "pcb_gerbers_drill" ]; then
+  file="${file_name}-gerbers.zip"
 else
   echo "::error::Type is not correct"
   exit 1

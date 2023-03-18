@@ -18,12 +18,15 @@ inputs:
       - pcb_step
       - pcb_pos
       - pcb_gerbers
+      - pcb_drill
+      - pcb_gerbers_drill
     required: true
   layers:
     description: >
       The layers that need to be exported in a comma seperated list. Example: "F.Cu,B.cu".
       This layers can be set by the following types:
       - pcb_gerbers
+      - pcb_gerbers_drill
 
 # outputs:
 #   output-type:

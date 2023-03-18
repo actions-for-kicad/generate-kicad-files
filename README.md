@@ -36,9 +36,12 @@ flowchart TD;
 
     sub5[version]
 
+    style sub2-1-1 fill:green
+    style sub2-1-3 fill:orange
     style sub2-1-4 fill:green
     style sub2-1-6 fill:green
     style sub2-1-7 fill:green
+    style gerber_drill fill:green
 
     style sub3-1-1 fill:green
     style sub3-1-2 fill:green
@@ -53,7 +56,7 @@ flowchart TD;
     
     sub2 --- sub2-1 --- sub2-1-1 & sub2-1-2 & sub2-1-3 & sub2-1-4 & sub2-1-5 & sub2-1-6 & sub2-1-7 & sub2-1-8
 
-    sub2-1-1 & sub2-1-3 -.- gerber_drill["also combined into gerber_drill"]
+    sub2-1-1 & sub2-1-4 -.- gerber_drill["also combined into gerbers_drill"]
 
     sub3 --- sub3-1 --- sub3-1-1 & sub3-1-2 & sub3-1-3 & sub3-1-4
 

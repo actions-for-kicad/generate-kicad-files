@@ -21,8 +21,8 @@ fi
 # Export the schematic
 if [ "$2" = "schematic_pdf" ]; then
   kicad-cli sch export pdf "$1"
-elif [ "$2" = "schematic_svg" ]; then
-  kicad-cli sch export svg "$1"
+# elif [ "$2" = "schematic_svg" ]; then
+#   kicad-cli sch export svg "$1"
 elif [ "$2" = "pcb_step" ]; then
   kicad-cli pcb export step --subst-models "$1"
 # elif [ "$2" = "pcb_gerbers_drill" ]; then

@@ -13,9 +13,11 @@ jobs:
       fail-fast: false
       matrix:
         kicad-version: ['7.0']
-        type: ['schematic_pdf', 'pcb_step']
+        type: ['schematic_pdf', 'schematic_svg', 'pcb_step']
         include:
           - type: schematic_pdf
+            file: kicad-project.kicad_sch
+          - type: schematic_svg
             file: kicad-project.kicad_sch
           - type: pcb_step
             file: kicad-project.kicad_pcb

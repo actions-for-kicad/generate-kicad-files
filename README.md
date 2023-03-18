@@ -36,6 +36,7 @@ flowchart TD;
 
     sub5[version]
 
+    style sub2-1-4 fill:green
     style sub2-1-6 fill:green
     style sub2-1-7 fill:green
 

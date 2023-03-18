@@ -18,10 +18,14 @@ elif [ "$1" = "schematic_svg" ]; then
   file="${file_name}.svg"
 elif [ "$1" = "schematic_bom" ]; then
   file="${file_name}-bom.xml"
+elif [ "$1" = "schematic_netlist" ]; then
+  file="${file_name}.net"
 elif [ "$1" = "pcb_step" ]; then
   file="${file_name}.step"
 elif [ "$1" = "pcb_pos" ]; then
   file="${file_name}.pos"
+elif [ "$1" = "pcb_gerbers" ]; then
+  file="${file_name}_gerbers.zip"
 else
   echo "::error::Type is not correct"
   exit 1

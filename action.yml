@@ -14,9 +14,16 @@ inputs:
       - schematic_pdf
       - schematic_svg
       - schematic_bom
+      - schematic_netlist
       - pcb_step
       - pcb_pos
+      - pcb_gerbers
     required: true
+  layers:
+    description: >
+      The layers that need to be exported in a comma seperated list. Example: "F.Cu,B.cu".
+      This layers can be set by the following types:
+      - pcb_gerbers
 
 # outputs:
 #   output-type:
@@ -34,5 +41,5 @@ runs:
   steps:
     - id: export-files
       name: 'Export files.'
-      run: ${{ github.action_path }}/export_files.sh "${{ inputs.file }}" "${{ inputs.type }}"
+      run: ${{ github.action_path }}/export_files.sh "${{ inputs.file }}" "${{ inputs.type }}" "${{ inputs.layers }}"
       shell: bash

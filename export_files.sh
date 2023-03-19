@@ -1,11 +1,12 @@
 #!/bin/bash
 
-# Check if the input variables are present
+# Check if the input file name is supplied.
 if [ -z "$1" ]; then
   echo "::error::Please supply source file"
   exit 1
 fi
 
+# Check if the export type is supplied.
 if [ -z "$2" ]; then
   echo "::error::Please supply type"
   exit 1
@@ -48,7 +49,8 @@ else
   exit 1
 fi
 
+# Give error if the export is failed
 if [ "$?" != "0" ]; then
-  echo "::error::Export failed"
+  echo "::error::Export failed."
   exit 1
 fi

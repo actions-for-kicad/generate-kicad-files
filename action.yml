@@ -31,4 +31,4 @@ inputs:
 runs:
   using: "docker"
   image: ghcr.io/kicad/kicad:8.0
-  post-entrypoint: export_files.sh "${{ inputs.file }}" "${{ inputs.type }}" "${{ inputs.layers }}"
+  post-entrypoint: kicad-cli sch export netlist "${{ inputs.file }}"

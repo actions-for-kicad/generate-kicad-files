@@ -35,9 +35,6 @@ jobs:
             file: kicad-project.kicad_pcb
     steps:
       - uses: actions/checkout@v3
-      - uses: actions-for-kicad/setup-kicad@main
-        with:
-          version: ${{ matrix.kicad-version }}
       - name: Export file
         uses: ./
         with:

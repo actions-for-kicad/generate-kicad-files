@@ -43,9 +43,7 @@ if [ -z "$type" ]; then
 fi
 
 # Get the file_name without file type
-file_name="$(echo $file_name | rev | cut -d '/' -f 1 | rev | cut -d '.' -f 1)"
-
-echo "filename: $file_name"
+export_zip_name="$(basename "$file_name" | rev | cut -d '.' -f 2- | rev)"
 
 # Function to export schematic
 export_schematic() {
@@ -67,13 +65,13 @@ case $type in
   pcb_pos) kicad-cli pcb export pos "$file_name" ;;
   pcb_gerbers)
     kicad-cli pcb export gerbers -l "$layers" "$file_name"
-    zip "${file_name}-gerbers.zip" *.g*
+    zip "${export_zip_name}-gerbers.zip" *.g*
     ;;
   pcb_drill) kicad-cli pcb export drill "$file_name" ;;
   pcb_gerbers_drill)
     kicad-cli pcb export gerbers -l "$layers" "$file_name"
     kicad-cli pcb export drill "$file_name"
-    zip "${file_name}-gerbers.zip" *.g* *.drl
+    zip "${export_zip_name}-gerbers.zip" *.g* *.drl
     ;;
   *)
     echo "::error::Type is not correct"

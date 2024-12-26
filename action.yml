@@ -1,12 +1,12 @@
-name: 'Generate kicad files'
-description: 'Generate kicad files like a pdf schematic, bom files, etc.'
+name: "Generate KiCad files"
+description: "Generate KiCad files like a pdf schematic, bom files, etc."
 branding:
-  icon: 'cpu'
-  color: 'yellow'
+  icon: "cpu"
+  color: "yellow"
 
 inputs:
   file:
-    description: 'The location to the schematic or PCB file.'
+    description: "The location to the schematic or PCB file."
     required: true
   type:
     description: >
@@ -23,26 +23,22 @@ inputs:
     required: true
   layers:
     description: >
-      The layers that need to be exported in a comma seperated list. Example: "F.Cu,B.cu".
-      The layers can be set by the following types:
+      The layers that need to be exported in a comma separated list. Example: "F.Cu,B.cu". If no layers are given, all layers are exported.
+      This input can be used when exporting the following types:
       - pcb_gerbers
       - pcb_gerbers_drill
-
-# outputs:
-#   output-type:
-#     description: >
-#       The output type of the files, this can be the following type:
-#       - file
-#       - folder
-#     value: XXXX
-#   output-location:
-#     description: 'The location of the output files.'
-#     value: ${{ github.action_path }}/output
+  black-and-white:
+    description: >
+      Export schematic in black and white.
+      The black-and-white option be used when exporting the following types:
+      - schematic_pdf
+      - schematic_svg
+    default: false
 
 runs:
   using: "composite"
   steps:
     - id: export-files
-      name: 'Export files.'
-      run: ${{ github.action_path }}/export_files.sh "${{ inputs.file }}" "${{ inputs.type }}" "${{ inputs.layers }}"
+      name: "Export files."
+      run: ${{ github.action_path }}/export-files.sh --type "${{ inputs.type }}" --layers "${{ inputs.layers }}" --black-and-white "${{ inputs.black-and-white }}" "${{ inputs.file }}"
       shell: bash

@@ -24,13 +24,13 @@ inputs:
   layers:
     description: >
       The layers that need to be exported in a comma separated list. Example: "F.Cu,B.cu". If no layers are given, all layers are exported.
-      The layers can be set by the following types:
+      This input can be used when exporting the following types:
       - pcb_gerbers
       - pcb_gerbers_drill
   black-and-white:
     description: >
-      Export footprints in black and white.
-      The black-and-white option be used by the following types:
+      Export schematic in black and white.
+      The black-and-white option be used when exporting the following types:
       - schematic_pdf
       - schematic_svg
     default: false
@@ -40,5 +40,5 @@ runs:
   steps:
     - id: export-files
       name: "Export files."
-      run: ${{ github.action_path }}/export_files.sh --type "${{ inputs.type }}" --layers "${{ inputs.layers }}" --black-and-white "${{ inputs.black-and-white }}" "${{ inputs.file }}"
+      run: ${{ github.action_path }}/export-files.sh --type "${{ inputs.type }}" --layers "${{ inputs.layers }}" --black-and-white "${{ inputs.black-and-white }}" "${{ inputs.file }}"
       shell: bash

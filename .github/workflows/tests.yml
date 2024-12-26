@@ -15,10 +15,10 @@ jobs:
         kicad-version: ["7.0", "8.0"]
         type:
           [
-            "schematic_pdf_color",
-            "schematic_pdf_black_white",
-            "schematic_svg_color",
-            "schematic_svg_black_white",
+            "schematic_pdf",
+            "schematic_pdf",
+            "schematic_svg",
+            "schematic_svg",
             "schematic_bom",
             "schematic_netlist",
             "pcb_step",
@@ -28,14 +28,14 @@ jobs:
             "pcb_gerbers_drill",
           ]
         include:
-          - type: schematic_pdf_color
+          - type: schematic_pdf
             file: kicad-project.kicad_sch
-          - type: schematic_pdf_black_white
+          - type: schematic_pdf
             file: kicad-project.kicad_sch
             black-and-white: true
-          - type: schematic_pdf_color
+          - type: schematic_pdf
             file: kicad-project.kicad_sch
-          - type: schematic_svg_black_white
+          - type: schematic_svg
             file: kicad-project.kicad_sch
             black-and-white: true
           - type: schematic_bom

@@ -1,12 +1,12 @@
-name: 'Generate kicad files'
-description: 'Generate kicad files like a pdf schematic, bom files, etc.'
+name: "Generate kicad files"
+description: "Generate kicad files like a pdf schematic, bom files, etc."
 branding:
-  icon: 'cpu'
-  color: 'yellow'
+  icon: "cpu"
+  color: "yellow"
 
 inputs:
   file:
-    description: 'The location to the schematic or PCB file.'
+    description: "The location to the schematic or PCB file."
     required: true
   type:
     description: >
@@ -27,22 +27,15 @@ inputs:
       The layers can be set by the following types:
       - pcb_gerbers
       - pcb_gerbers_drill
-
-# outputs:
-#   output-type:
-#     description: >
-#       The output type of the files, this can be the following type:
-#       - file
-#       - folder
-#     value: XXXX
-#   output-location:
-#     description: 'The location of the output files.'
-#     value: ${{ github.action_path }}/output
+  black-and-white:
+    description: "Export footprints in black and white."
+    required: false
+    default: false
 
 runs:
   using: "composite"
   steps:
     - id: export-files
-      name: 'Export files.'
-      run: ${{ github.action_path }}/export_files.sh "${{ inputs.file }}" "${{ inputs.type }}" "${{ inputs.layers }}"
+      name: "Export files."
+      run: ${{ github.action_path }}/export_files.sh "${{ inputs.file }}" "${{ inputs.type }}" "${{ inputs.layers }}" "${{ inputs.black-and-white }}"
       shell: bash

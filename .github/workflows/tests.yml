@@ -3,8 +3,8 @@ name: tests
 on:
   push:
     paths-ignore:
-      - 'LICENSE'
-      - '*.md'
+      - "LICENSE"
+      - "*.md"
 
 jobs:
   check-export:
@@ -12,11 +12,26 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        kicad-version: ['7.0']
-        type: ['schematic_pdf', 'schematic_svg', 'schematic_bom', 'schematic_netlist', 'pcb_step', 'pcb_pos', 'pcb_gerbers', 'pcb_drill', 'pcb_gerbers_drill']
+        kicad-version: ["7.0", "8.0"]
+        type:
+          [
+            "schematic_pdf_color",
+            "schematic_pdf_black_white",
+            "schematic_svg",
+            "schematic_bom",
+            "schematic_netlist",
+            "pcb_step",
+            "pcb_pos",
+            "pcb_gerbers",
+            "pcb_drill",
+            "pcb_gerbers_drill",
+          ]
         include:
-          - type: schematic_pdf
+          - type: schematic_pdf_color
             file: kicad-project.kicad_sch
+          - type: schematic_pdf_black_white
+            file: kicad-project.kicad_sch
+            black-and-white: true
           - type: schematic_svg
             file: kicad-project.kicad_sch
           - type: schematic_bom
@@ -41,7 +56,7 @@ jobs:
       - name: Export file
         uses: ./
         with:
-          file: 'tests/kicad-project/${{ matrix.file }}'
+          file: "tests/kicad-project/${{ matrix.file }}"
           type: ${{ matrix.type }}
       - name: Verifiy output
         run: tests/check-output.sh "${{ matrix.type }}" "${{ matrix.file }}"

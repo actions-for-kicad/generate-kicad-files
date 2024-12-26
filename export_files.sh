@@ -24,7 +24,7 @@ file_name="$(echo $1 | rev | cut -d '/' -f 1 | rev | cut -d '.' -f 1)"
 
 # Export the schematic
 if [ "$2" = "schematic_pdf" ]; then
-  kicad-cli sch export pdf "$1"
+  kicad-cli sch export pdf "$1" --black-and-white "$4"
 elif [ "$2" = "schematic_svg" ]; then
   kicad-cli sch export svg "$1"
 elif [ "$2" = "schematic_bom" ]; then

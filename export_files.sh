@@ -45,6 +45,8 @@ fi
 # Get the file_name without file type
 file_name="$(echo $file_name | rev | cut -d '/' -f 1 | rev | cut -d '.' -f 1)"
 
+echo "filename: $file_name"
+
 # Function to export schematic
 export_schematic() {
   local format=$1

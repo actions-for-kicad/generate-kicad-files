@@ -17,7 +17,8 @@ jobs:
           [
             "schematic_pdf_color",
             "schematic_pdf_black_white",
-            "schematic_svg",
+            "schematic_svg_color",
+            "schematic_svg_black_white",
             "schematic_bom",
             "schematic_netlist",
             "pcb_step",
@@ -32,8 +33,11 @@ jobs:
           - type: schematic_pdf_black_white
             file: kicad-project.kicad_sch
             black-and-white: true
-          - type: schematic_svg
+          - type: schematic_pdf_color
             file: kicad-project.kicad_sch
+          - type: schematic_svg_black_white
+            file: kicad-project.kicad_sch
+            black-and-white: true
           - type: schematic_bom
             file: kicad-project.kicad_sch
           - type: schematic_netlist

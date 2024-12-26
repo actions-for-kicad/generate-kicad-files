@@ -43,9 +43,7 @@ if [ -z "$type" ]; then
 fi
 
 # Get the file_name without file type
-file_name="$(basename "$file_name" | rev | cut -d '.' -f 2- | rev)"
-
-echo "file_name: $file_name"
+file_name="$(echo $file_name | rev | cut -d '/' -f 1 | rev | cut -d '.' -f 1)"
 
 # Function to export schematic
 export_schematic() {

@@ -13,7 +13,7 @@ steps:
   - uses: actions/checkout@v3
   - uses: actions-for-kicad/setup-kicad@v1.0
     with:
-      version: "7.0"
+      version: "8.0"
   - uses: actions-for-kicad/generate-kicad-files@v1.0
     with:
       file: "./file.kicad_sch"

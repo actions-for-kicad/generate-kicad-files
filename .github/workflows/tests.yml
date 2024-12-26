@@ -16,8 +16,6 @@ jobs:
         type:
           [
             "schematic_pdf",
-            "schematic_pdf",
-            "schematic_svg",
             "schematic_svg",
             "schematic_bom",
             "schematic_netlist",
@@ -30,14 +28,9 @@ jobs:
         include:
           - type: schematic_pdf
             file: kicad-project.kicad_sch
-          - type: schematic_pdf
-            file: kicad-project.kicad_sch
             black-and-white: true
-          - type: schematic_pdf
-            file: kicad-project.kicad_sch
           - type: schematic_svg
             file: kicad-project.kicad_sch
-            black-and-white: true
           - type: schematic_bom
             file: kicad-project.kicad_sch
           - type: schematic_netlist

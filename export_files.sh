@@ -42,45 +42,44 @@ if [ -z "$type" ]; then
   exit 1
 fi
 
-# Get the fil_name without file type
-file_name="$(echo $file_name | rev | cut -d '/' -f 1 | rev | cut -d '.' -f 1)"
+# Get the file_name without file type
+file_name="$(basename "$file_name" | rev | cut -d '.' -f 2- | rev)"
 
-# Export the schematic
-if [ "$type" = "schematic_pdf" ]; then
+# Function to export schematic
+export_schematic() {
+  local format=$1
   if $black_and_white; then
-    kicad-cli sch export pdf --black-and-white "$file_name"
+    kicad-cli sch export "$format" --black-and-white "$file_name"
   else
-    kicad-cli sch export pdf "$file_name"
+    kicad-cli sch export "$format" "$file_name"
   fi
-elif [ "$type" = "schematic_svg" ]; then
-  if $black_and_white; then
-    kicad-cli sch export svg --black-and-white "$file_name"
-  else
-    kicad-cli sch export svg "$file_name"
-  fi
-elif [ "$type" = "schematic_bom" ]; then
-  kicad-cli sch export python-bom "$file_name"
-elif [ "$type" = "schematic_netlist" ]; then
-  kicad-cli sch export netlist "$file_name"
-elif [ "$type" = "pcb_step" ]; then
-  kicad-cli pcb export step --subst-models "$file_name"
-elif [ "$type" = "pcb_pos" ]; then
-  kicad-cli pcb export pos "$file_name"
-elif [ "$type" = "pcb_gerbers" ]; then
-  kicad-cli pcb export gerbers -l "$layers" "$file_name"
-  zip "${$file_name}-gerbers.zip" *.g*
-elif [ "$type" = "pcb_drill" ]; then
-  kicad-cli pcb export drill "$file_name"
-elif [ "$type" = "pcb_gerbers_drill" ]; then
-  kicad-cli pcb export gerbers -l "$layers" "$file_name"
-  kicad-cli pcb export drill "$file_name"
-  zip "${$file_name}-gerbers.zip" *.g* *.drl
-else
-  echo "::error::Type is not correct"
-  exit 1
-fi
+}
 
-# Give error if the export is failed
+# Export based on type
+case $type in
+  schematic_pdf) export_schematic pdf ;;
+  schematic_svg) export_schematic svg ;;
+  schematic_bom) kicad-cli sch export python-bom "$file_name" ;;
+  schematic_netlist) kicad-cli sch export netlist "$file_name" ;;
+  pcb_step) kicad-cli pcb export step --subst-models "$file_name" ;;
+  pcb_pos) kicad-cli pcb export pos "$file_name" ;;
+  pcb_gerbers)
+    kicad-cli pcb export gerbers -l "$layers" "$file_name"
+    zip "${file_name}-gerbers.zip" *.g*
+    ;;
+  pcb_drill) kicad-cli pcb export drill "$file_name" ;;
+  pcb_gerbers_drill)
+    kicad-cli pcb export gerbers -l "$layers" "$file_name"
+    kicad-cli pcb export drill "$file_name"
+    zip "${file_name}-gerbers.zip" *.g* *.drl
+    ;;
+  *)
+    echo "::error::Type is not correct"
+    exit 1
+    ;;
+esac
+
+# Give error if the export failed
 if [ "$?" != "0" ]; then
   echo "::error::Export failed."
   exit 1

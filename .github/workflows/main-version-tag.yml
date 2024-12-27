@@ -1,4 +1,4 @@
-name: Add main version tag
+name: Add Main Version Tag
 
 on:
   release:
@@ -18,9 +18,10 @@ jobs:
           TAG_NAME=${{ github.event.release.tag_name }}
           MAIN_VERSION=$(echo $TAG_NAME | grep -oP 'v\K[0-9]+')
           echo "::set-output name=main_version::v$MAIN_VERSION"
-      - name: Create main version tag
+
+      - name: Create or update main version tag
         run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-          git tag ${{ steps.extract_version.outputs.main_version }}
-          git push origin ${{ steps.extract_version.outputs.main_version }}
+          git tag -f ${{ steps.extract_version.outputs.main_version }}
+          git push -f origin ${{ steps.extract_version.outputs.main_version }}

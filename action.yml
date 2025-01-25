@@ -38,9 +38,12 @@ inputs:
 runs:
   using: "composite"
   steps:
+    # STEP 1: Pull the Docker Image
     - name: Pre-pull Docker Image
       run: docker pull docker.io/kicad/kicad:8.0
+      shell: bash
 
+    # STEP 2: Run Docker Command for Export
     - id: export-files
       name: Export KiCad Files Using Docker
       run: |
@@ -91,7 +94,9 @@ runs:
                 ;;
             esac
           "
+      shell: bash
 
+    # STEP 3: Upload Generated Files
     - name: Upload Exported Files
       uses: actions/upload-artifact@v4
       with:

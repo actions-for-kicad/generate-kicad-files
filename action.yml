@@ -38,7 +38,13 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: "Copy export-files script"
+      run: |
+        cp ${{ github.action_path }}/export-files.sh /usr/local/bin/
+        chmod +x /usr/local/bin/export-files.sh
+      shell: bash
+
     - id: export-files
       name: "Export files."
-      run: ${{ github.action_path }}/export-files.sh --type "${{ inputs.type }}" --layers "${{ inputs.layers }}" --black-and-white "${{ inputs.black-and-white }}" "${{ inputs.file }}"
+      run: export-files.sh --type "${{ inputs.type }}" --layers "${{ inputs.layers }}" --black-and-white "${{ inputs.black-and-white }}" "${{ inputs.file }}"
       shell: bash

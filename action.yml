@@ -36,69 +36,10 @@ inputs:
     default: false
 
 runs:
-  using: "composite"
-  steps:
-    # STEP 1: Pull the Docker Image
-    - name: Pre-pull Docker Image
-      run: docker pull docker.io/kicad/kicad:8.0
-      shell: bash
-
-    # STEP 2: Run Docker Command for Export
-    - id: export-files
-      name: Export KiCad Files Using Docker
-      run: |
-        mkdir -p generated-files
-        docker run --rm \
-          -v "${{ github.workspace }}:/workspace" \
-          -w "/workspace" \
-          docker.io/kicad/kicad:8.0 \
-          /bin/bash -c "
-            export FILE=${{ inputs.file }}
-            export TYPE=${{ inputs.type }}
-            export LAYERS=${{ inputs.layers }}
-            export BLACK_AND_WHITE=${{ inputs.black-and-white }}
-            
-            OUTPUT_DIR=\"/workspace/generated-files\"
-
-            case \"$TYPE\" in
-              schematic_pdf)
-                kicad-cli sch export pdf --black-and-white=$BLACK_AND_WHITE \"$FILE\" -o \"$OUTPUT_DIR/schematic.pdf\"
-                ;;
-              schematic_svg)
-                kicad-cli sch export svg --black-and-white=$BLACK_AND_WHITE \"$FILE\" -o \"$OUTPUT_DIR/schematic.svg\"
-                ;;
-              schematic_bom)
-                kicad-cli sch export bom \"$FILE\" -o \"$OUTPUT_DIR/bom.csv\"
-                ;;
-              schematic_netlist)
-                kicad-cli sch export netlist \"$FILE\" -o \"$OUTPUT_DIR/netlist.net\"
-                ;;
-              pcb_step)
-                kicad-cli pcb export step \"$FILE\" -o \"$OUTPUT_DIR/board.step\"
-                ;;
-              pcb_pos)
-                kicad-cli pcb export pos \"$FILE\" -o \"$OUTPUT_DIR/pos.csv\"
-                ;;
-              pcb_gerbers)
-                kicad-cli pcb export gerbers --layers=\"$LAYERS\" \"$FILE\" -o \"$OUTPUT_DIR/gerbers\"
-                ;;
-              pcb_drill)
-                kicad-cli pcb export drill \"$FILE\" -o \"$OUTPUT_DIR/drill.drl\"
-                ;;
-              pcb_gerbers_drill)
-                kicad-cli pcb export gerbers-drill --layers=\"$LAYERS\" \"$FILE\" -o \"$OUTPUT_DIR/gerbers-drill\"
-                ;;
-              *)
-                echo \"Invalid type specified\"
-                exit 1
-                ;;
-            esac
-          "
-      shell: bash
-
-    # STEP 3: Upload Generated Files
-    - name: Upload Exported Files
-      uses: actions/upload-artifact@v4
-      with:
-        name: "KiCad Generated Files"
-        path: "generated-files"
+  using: "docker"
+  image: "docker.io/kicad/kicad:8.0"
+  args:
+    - /bin/bash
+    - -c
+    - |
+      echo "Hello, ${{ inputs.type }}!"

@@ -9,13 +9,10 @@ on:
 jobs:
   check-export:
     runs-on: ubuntu-latest
-    container:
-      image: docker.io/kicad/kicad:8.0
-      options: --user root
     strategy:
       fail-fast: false
       matrix:
-        kicad-version: ["8.0"]
+        kicad-version: ["7.0", "8.0"]
         type:
           [
             "schematic_pdf",
@@ -50,6 +47,9 @@ jobs:
             file: kicad-project.kicad_pcb
     steps:
       - uses: actions/checkout@v3
+      - uses: actions-for-kicad/setup-kicad@main
+        with:
+          version: ${{ matrix.kicad-version }}
       - name: Export file
         uses: ./
         with:

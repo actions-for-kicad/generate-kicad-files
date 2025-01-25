@@ -9,7 +9,7 @@ inputs:
     description: "The location to the schematic or PCB file."
     required: true
   version:
-    description: 'The kicad version in the following format: "x.y" or "x.y.z". For example: "8.0" or "8.0.1"'
+    description: 'The KiCad version in the following format: "x.y" or "x.y.z". For example: "8.0" or "8.0.1"'
     required: true
   type:
     description: >
@@ -40,7 +40,7 @@ inputs:
 
 runs:
   using: "docker"
-  image: "docker.io/kicad/kicad:${{ inputs.version }}"
+  image: "docker.io/kicad/kicad:${inputs.version}"
   args:
     - /bin/bash
     - -c

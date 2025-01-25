@@ -9,7 +9,9 @@ on:
 jobs:
   check-export:
     runs-on: ubuntu-latest
-    container: docker.io/kicad/kicad:8.0
+    container:
+      image: docker.io/kicad/kicad:8.0
+      options: --user root
     strategy:
       fail-fast: false
       matrix:

@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        kicad-version: ["8.0"]
+        kicad-version: ["7.0", "8.0"]
         type:
           [
             "schematic_pdf",
@@ -50,6 +50,7 @@ jobs:
       - name: Export file
         uses: ./
         with:
+          version: ${{ matrix.kicad-version }}
           file: "tests/kicad-project/${{ matrix.file }}"
           type: ${{ matrix.type }}
       - name: Verifiy output

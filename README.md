@@ -1,5 +1,8 @@
 # generate-kicad-files
 
+> ⚠️ **This repository is archived and no longer maintained.**  
+> Please use my new and improved all in one [KiCad action](https://github.com/marketplace/actions/kicad-actions).
+
 The schematic and PCB export action for KiCad projects.
 
 > **_NOTE:_** Minimal KiCad version is 7.0.
